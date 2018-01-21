@@ -1,0 +1,55 @@
+ 
+ drop database if exists intro ;
+ 
+ create database intro ;
+ 
+ use intro;
+ 
+ create table autos ( codigo int auto_increment primary key , marca varchar(255) , modelo varchar(255),
+						color varchar(255), anio int ,precio double) ;
+                        
+describe autos;
+
+insert into autos (marca , modelo , color , anio , precio ) values 
+			("renault","clio","negro",2007,100.000 ),
+            ("renault","sandero","blamnco",2003,200.000 ),
+            ("renault","stepway ","verde",2006,150.000 ),
+            ("renault","kangoo","rojo",2010,100.900 ),
+            ("renault","master","negro",2009,600.000 ),
+            ("renault","megane","azul",2007,190.000 ),
+            ("fiat","siena","gris",2005,90.000 ),
+            ("fiat","uno","negro",2007,100.000 ),
+            ("fiat","fiorino","blanco",2010,100.000 ),
+            ("renault","clio","negro",2008,100.000 ),
+            ("renault","clio","negro",2009,100.000 ),
+            ("renault","clio","negro",2005,137.000 ),
+            ("renault","clio","negro",2000,36.000 ),
+            ("renault","clio","negro",2001,35.500 );
+
+-- obtener el precio maximo 
+select max(precio) as precio_maximo from autos  ;
+
+-- obtener el precio minimo 
+select min(precio) as percio_minimo from autos;
+
+-- obtener el precio minimo entre los años 2000 y 2008
+select min(precio) as precio_minimo from autos where anio between 2000 and 2008 ;
+
+-- obtener precio promedio
+select round(avg(precio),2) as promedio from autos;
+
+-- obtener cantidad de autos 
+select count(modelo) as cantidad_de_unidades from autos;
+
+-- obtener precio promedio 2006
+select round(avg(precio),2) as promedio_2006 from autos where anio = 2006;
+
+-- obtener la cantidad de autos que tienen un precio entre 35 y 40 
+select * from autos where precio between 35.000 and 40.000; 
+
+-- obtener la cantidad de autos que hay en cada año
+select anio,count(modelo) as cantidad_de_autos  from autos group BY anio ;
+
+-- cantidad de autos y promedio del precio por año
+select anio,count(modelo) as cantidad_de_autos  , avg(precio) as promedio from autos group by anio;
+
