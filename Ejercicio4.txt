@@ -1,0 +1,199 @@
+set sql_safe_updates = 0 ;
+-- creo base de datos
+
+drop database if exists clase3;
+
+-- creo base de datos
+
+create database clase3;
+use clase3;
+
+-- creo tablas base de datos
+
+create table clientes(
+    codigo int auto_increment primary key,
+    nombre varchar(20) not null,
+    apellido varchar(20) not null,
+    cuit varchar(13),
+    direccion varchar(50),
+    comentarios varchar(140)
+);
+
+-- ingreso dentro de clientes datos
+
+insert into clientes (nombre,apellido,cuit,direccion) values 
+('Juan','Perez','12345678','Lavalle 648');
+
+ 
+insert into clientes (nombre,apellido,cuit,direccion) values
+('Maria','Gomez','2222222','Larrea 222'),
+('Laura','Salas','3333333','Lima 234'),
+('Jose','Cerezo','4444444','Viel 333');
+
+
+create table facturas(
+letra char(1),
+numero integer,
+fecha date,
+monto double,
+primary key (letra,numero)
+);
+
+
+create table articulos(
+codigo integer,
+nombre varchar(50),
+precio double,
+stock integer,
+primary key (codigo)
+);
+ 
+
+insert into articulos values (1,'destornillador',25,50);
+insert into articulos values (2,'pinza',35,22);
+insert into articulos values (3,'martillo',15,28);
+insert into articulos values (4,'maza',35,18);
+insert into articulos values (5,'balde',55,13);
+ 
+insert into facturas values ('a',0001,'2011/10/18',500);
+insert into facturas values ('a',0002,'2011/10/18',2500);
+insert into facturas values ('b',0003,'2011/10/18',320);
+insert into facturas values ('b',0004,'2011/10/18',120);
+insert into facturas values ('b',0005,'2011/10/18',560);
+
+-- inserto un registro con la fecha actual
+insert into facturas values ('c',0006,curdate(),300);
+
+insert into clientes (nombre,apellido) values
+('Juan','Gomez'),('Laura','Perez'),
+('Laura','Gomez'),('Cristian','Perez');
+
+insert into facturas (letra,numero,fecha,monto) values
+('c',2001,curdate(),250),
+('c',2002,curdate(),270),
+('c',2003,curdate(),300),
+('c',2004,curdate(),330),
+('c',2005,curdate(),350),
+('c',2006,curdate(),390),
+('c',2007,curdate(),400),
+('c',2008,curdate(),420);
+
+
+insert into clientes (nombre,apellido,direccion) values
+('Andrea','Moretti',''),
+('Gabriela','Juarez',null);
+
+insert into clientes (nombre,apellido) values
+('Maria','Perez'),('Mario','Perez'),('Marina','Perez'),
+('Mirta','Perez'),('Mirna','Perez'),('Moria','Perez'),
+('Mariano','Perez'),('Monica','Perez'),('Micaela','Perez'),
+('Magali','Perez'),('Ana','Perez'),('Victor','Perez'),
+('Armando','Perez'),('Omar','Perez'),('Miryam','Perez');
+
+insert into clientes (nombre,apellido,cuit,direccion) values ('jose','benuto','3647493','loria 940');
+ 
+insert into facturas (letra,numero,fecha,monto) values ('a',1001,'2012/10/25',350);
+insert into facturas (letra,numero,fecha,monto) values ('a',1002,curdate(),540);
+select * from facturas;
+ 
+insert into articulos (codigo,nombre,precio,stock) values (110,'destornillador',30,100);
+insert into articulos (codigo,nombre,precio,stock) values (111,'martillo',40*1.21,50);
+
+insert into clientes (nombre,apellido,direccion) 
+values ('Lorena','Godoy','Lima 236');
+
+insert into clientes values (null,'Javier','Larrosa','6666','Peru 650','');
+
+insert clientes set nombre='Carolina',apellido='Romero';
+
+insert into clientes (nombre,apellido) values
+('Jorge','Quinteros'),
+('Jose','Sosa'),
+('Raul','Mendez'),
+('Karina','Vasquez'),
+('Melina','Miguel');
+
+
+-- prueba que todo funciona correcto : 
+
+show tables;
+describe clientes;
+describe articulos;
+describe facturas;
+
+select * from clientes;
+select * from articulos;
+select * from facturas;
+
+
+-- -----------
+-- Ejercicio 4
+-- -----------
+ 
+ 
+-- Basándose en la tabla clientes realizar los siguientes puntos.
+ 
+-- 1-   Insertar 5 clientes en la tabla clientes utilizando el insert into sin utilizar campos como parte de la sentencias, es decir de la forma simplificada.
+-- 2-   Insertar 5 clientes en la tabla clientes utilizando los campos como parte de la sentencias, es decir de la forma extendida. Completar solo los campos nombre, apellido y CUIT.
+-- 3-   Actualizar el nombre del cliente 1 a Jose.
+-- 4-   Actualizar el nombre apellido y cuit del cliente 3 a Pablo Fuentes 20-21053119-0.
+-- 5-   Actualizar todos los comentarios NULL  a ‘ ‘.
+-- 6-   Eliminar los clientes con apellido Perez.
+-- 7-   Eliminar los clientes con CUIT Terminan en 0.
+ 
+-- Basando se en la tabla artículos, realizar los siguientes puntos.
+--  8- Aumentar un 20% los precios de los artículos con precio menor igual a 50.
+--  9- Aumentar un 15% los precios de los artículos con precio mayor a 50.
+--  10- Bajar un 5% los precios de los artículos con precio mayor a 200.
+--  11- Eliminar los artículos con stock menor a 0.
+ 
+-- 1-   Insertar 5 clientes en la tabla clientes utilizando el insert into sin utilizar 
+-- campos como parte de la sentencias, es decir de la forma simplificada.
+
+insert into clientes values (100,"mauro","panella","20347530612","terrada 4600","s/n"),
+(101,"paula","panella","20347530613","terrada 4630","s/n"),
+(102,"juan","panella","20334530612","terrada 4690","s/n"),
+(103,"pedro","panella","20347530890","terrada 4700","s/n"),
+(104,"sole","panella","40347530612","terrada 5600","s/n");
+
+select * from clientes;
+
+-- 2-   Insertar 5 clientes en la tabla clientes utilizando los campos como parte de la 
+-- sentencias, es decir de la forma extendida. Completar solo los campos nombre, apellido y CUIT.
+
+insert into clientes (nombre,apellido,cuit) values
+ ("mauro","panella","20347530612"),
+("paula","panella","20347530613"),
+("juan","panella","20334530612"),
+("pedro","panella","20347530890"),
+("sole","panella","40347530612");
+
+-- 3-   Actualizar el nombre del cliente 1 a Jose.
+update clientes set  nombre = "jose" where codigo = 1 ; 
+
+-- 4-   Actualizar el nombre apellido y cuit del cliente 3 a Pablo Fuentes 20-21053119-0
+update clientes set nombre = "pablo" , apellido = "fuentes" , cuit = "20-21053119-0" where codigo = 3 ; 
+
+-- 5-   Actualizar todos los comentarios NULL  a ‘ ‘.
+update clientes set comentarios = ""  where comentarios is null;
+
+-- 6-   Eliminar los clientes con apellido Perez.
+delete from clientes where apellido = "perez";
+
+-- 7-   Eliminar los clientes con CUIT Terminan en 0.
+delete from clientes where cuit like '%0';
+
+-- Basando se en la tabla artículos, realizar los siguientes puntos.
+
+--  8- Aumentar un 20% los precios de los artículos con precio menor igual a 50.
+update articulos set precio = precio * 1.20  where precio <= 50;
+select * from articulos;
+
+--  9- Aumentar un 15% los precios de los artículos con precio mayor a 50.
+update articulos set precio = round(precio * 1.15,2) where precio >= 50;
+
+--  10- Bajar un 5% los precios de los artículos con precio mayor a 200.
+update articulos set precio = round(precio - (precio * 0.15 ),2) where precio > 200;
+
+--  11- Eliminar los artículos con stock menor a 0.
+ delete from articulos where stock < 0 ;
