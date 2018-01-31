@@ -1,0 +1,48 @@
+
+-- ///////////////////////////////////////////////////////////
+-- LABORATORIO 4 ejercicio 6
+use clase3;
+show tables;
+
+
+describe facturas;
+alter table facturas add codigocliente int;
+describe facturas;
+select * from facturas;
+select * from clientes;
+
+
+update facturas set codigocliente = 1 where numero = 1;
+update facturas set codigocliente = 2 where numero = 2;
+update facturas set codigocliente = 1 where numero = 1001;
+update facturas set codigocliente = 1 where numero = 1002;
+update facturas set codigocliente = 2 where numero = 3;
+update facturas set codigocliente = 4 where numero = 4;
+update facturas set codigocliente = 100 where codigocliente is null;
+
+-- informar nombre y apellido de los clientes que tienen facturas en el dia de hoy 
+-- select nombre,apellido from clientes join facturas  where fecha = "2011-10-18";
+select codigo as codigo , nombre , apellido from clientes  , facturas 
+		where codigo = codigocliente and fecha = "2011-10-18";
+        
+-- informar la suma de los montos de cada cliente
+select c.codigo as codigo , nombre , apellido , sum(monto) as suma_total 
+		from clientes c , facturas f where c.codigo = f.codigocliente group by c.codigo;
+
+-- informar cual es el cliente que mas ha comprado 
+select c.codigo as codigo , nombre , apellido , sum(monto) as total 
+	from clientes c , facturas f where c.codigo = f.codigocliente group by c.codigo
+		having total = (select sum(monto) as total from clientes c, facturas f where c.codigo 
+			= f.codigocliente group by c.codigo order by total desc limit 1 ) ;
+            
+-- informar la cantidad de facturas de cada cliente
+select c.codigo as codigo , nombre ,apellido , count(*) as cantidad_facturas from clientes c , facturas f
+	where c.codigo = f.codigocliente group by c.codigo;
+    
+-- informar quienes compraron el primer dia de ventas
+select distinct c.codigo as codigo,nombre,apellido from clientes c , facturas f
+	where c.codigo = f.codigocliente and fecha =(select min(fecha) from facturas);
+    
+-- informar que cpompro el cliente juan perez
+select c.codigo as codigo , nombre ,apellido , letra ,numero ,fecha , monto from
+	clientes c , facturas f where c.codigo = f.codigocliente;
